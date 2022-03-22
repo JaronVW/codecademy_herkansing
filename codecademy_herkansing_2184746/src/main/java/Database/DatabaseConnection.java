@@ -9,19 +9,19 @@ public class DatabaseConnection {
 
 
     public DatabaseConnection() {
-        connectionUrl = "jdbc:sqlserver://localhost;databaseName=Codecademy;integratedSecurity=true;";
+        connectionUrl = "jdbc:sqlserver://localhost;databaseName=codecademy;integratedSecurity=true;";
     }
 
-    public Connection openConnection() {
+    public Boolean openConnection() {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             con = DriverManager.getConnection(connectionUrl);
 
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            return true;
         }
-        return con;
+        return false;
     }
 
     public void closeConnection() {
@@ -32,7 +32,7 @@ public class DatabaseConnection {
         }
     }
 
-    private ResultSet executeSelectStatement(String query) {
+    public ResultSet executeSelectStatement(String query) {
         try {
             Statement statement = con.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -46,7 +46,7 @@ public class DatabaseConnection {
         // method returns ResultSet if query execution was successful
     }
 
-    private boolean executeInsertStatement(String query) {
+    public boolean executeInsertStatement(String query) {
         try {
             Statement statement = con.createStatement();
             statement.executeUpdate(query);
@@ -59,7 +59,7 @@ public class DatabaseConnection {
         }
     }
 
-    private boolean executeUpdateStatement(String query) {
+    public boolean executeUpdateStatement(String query) {
         try {
             Statement statement = con.createStatement();
             statement.executeUpdate(query);
@@ -72,7 +72,7 @@ public class DatabaseConnection {
         }
     }
 
-    private boolean executeDeleteStatement(String query) {
+    public boolean executeDeleteStatement(String query) {
         try {
             Statement statement = con.createStatement();
             statement.executeUpdate(query);
