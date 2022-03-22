@@ -1,19 +1,19 @@
 package Domain;
 
-public class Grade {
-    private final int number;
+public class Percentage {
+    private final int percentage;
 
-    public Grade(int number) {
+    public Percentage(int number) {
         if (isValidPercentage(number)) {
-            this.number = number;
+            this.percentage = number;
         } else {
             throw new IllegalArgumentException();
         }
 
     }
 
-    public int getNumber() {
-        return number;
+    public int getPercentage() {
+        return percentage;
     }
 
     private static boolean isValidPercentage(int percentage) {

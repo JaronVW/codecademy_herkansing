@@ -1,18 +1,19 @@
 package Domain;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 public class ValidatedDate {
-    private java.util.Date date;
+    private Date date;
 
 
     public ValidatedDate(int day, int month, int year) {
         if(validateDate(day,month,year))
-            this.date = new java.util.Date(day,month,year);
+            this.date = new Date(day,month,year);
 
     }
 
-    public java.util.Date getDate() {
+    public Date getDate() {
         return date;
     }
 

@@ -1,17 +1,15 @@
 package Domain;
 public class Mail {
 
-    public static void main(String[] args) {
+    private String mail;
 
-        String email = "quinnie@hotmail.nl";
-        String[] mail = email.split("@");
-        mail = mail[1].split(".");
-        String test = mail[0];
-//        email.split("@")[1].split(".").length()
-        System.out.println(test);
+    public Mail(String mail) {
 
+        // TODO add validation for mail
+        this.mail = mail;
     }
-    public static boolean validateMailAddress(String mailAddress) {
-        return false;
+
+    public String getMail() {
+        return mail;
     }
 }

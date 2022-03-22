@@ -1,18 +1,16 @@
 package Domain;
 
-import java.util.Arrays;
+public class Zipcode {
 
-public class PostalCode {
+    String zipcode;
 
-    String postalCode;
-
-    public PostalCode(String postalCode) {
+    public Zipcode(String postalCode) {
         postalCode = formatPostalCode(postalCode);
-        this.postalCode = postalCode;
+        this.zipcode = postalCode;
     }
 
-    public String getPostalCode() {
-        return postalCode;
+    public String getZipcode() {
+        return zipcode;
     }
 
     private static String formatPostalCode(String postalCode) {
