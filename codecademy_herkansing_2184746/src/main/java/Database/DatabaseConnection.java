@@ -9,7 +9,7 @@ public class DatabaseConnection {
 
 
     public DatabaseConnection() {
-        connectionUrl = "jdbc:sqlserver://localhost;databaseName=codecademy;integratedSecurity=true;";
+        connectionUrl = "jdbc:sqlserver://localhost;databaseName=codecademy;integratedSecurity=true;encrypt=true;trustServerCertificate=true";
     }
 
     public Boolean openConnection() {
