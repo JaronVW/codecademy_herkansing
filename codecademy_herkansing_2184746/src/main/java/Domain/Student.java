@@ -56,4 +56,20 @@ public class Student {
     public String getCountry() {
         return country;
     }
+
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "emailaddress=" + emailaddress +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", DateOfBirth=" + DateOfBirth +
+                ", gender=" + gender +
+                ", address='" + address + '\'' +
+                ", zipcode=" + zipcode +
+                ", city='" + city + '\'' +
+                ", country='" + country + '\'' +
+                '}';
+    }
 }

@@ -13,6 +13,12 @@ public class ValidatedDate {
 
     }
 
+    public ValidatedDate(Date date) {
+            this.date = date;
+    }
+
+
+
     public Date getDate() {
         return date;
     }

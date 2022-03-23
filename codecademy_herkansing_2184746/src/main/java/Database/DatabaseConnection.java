@@ -5,39 +5,39 @@ import java.sql.*;
 public class DatabaseConnection {
 
     private final String connectionUrl;
-    private Connection con;
+    private Connection connection;
 
 
     public DatabaseConnection() {
         connectionUrl = "jdbc:sqlserver://localhost;databaseName=codecademy;integratedSecurity=true;encrypt=true;trustServerCertificate=true";
+        // string used to connect to database
     }
 
-    public Boolean openConnection() {
+    public Connection openConnection() {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            con = DriverManager.getConnection(connectionUrl);
-
+            connection = DriverManager.getConnection(connectionUrl);
+            //checks if the connection is valid and authenticated , then sets the connection to the variable
         } catch (Exception e) {
             e.printStackTrace();
-            return true;
+            return null;
         }
-        return false;
+        return connection;
     }
 
     public void closeConnection() {
         try {
-            this.con.close();
+            this.connection.close();
         } catch (SQLException e) {
             System.out.println("Error: " + e);
         }
+        // method used to end the connection with the database
     }
 
     public ResultSet executeSelectStatement(String query) {
         try {
-            Statement statement = con.createStatement();
-            ResultSet resultSet = statement.executeQuery(query);
-            statement.close();
-            return resultSet;
+            Statement statement = connection.createStatement();
+            return statement.executeQuery(query);
 
         } catch (SQLException e) {
             System.out.println("Error: " + e);
@@ -45,44 +45,4 @@ public class DatabaseConnection {
         }
         // method returns ResultSet if query execution was successful
     }
-
-    public boolean executeInsertStatement(String query) {
-        try {
-            Statement statement = con.createStatement();
-            statement.executeUpdate(query);
-            statement.close();
-            return true;
-
-        } catch (SQLException e) {
-            System.out.println("Error: " + e);
-            return false;
-        }
-    }
-
-    public boolean executeUpdateStatement(String query) {
-        try {
-            Statement statement = con.createStatement();
-            statement.executeUpdate(query);
-            statement.close();
-            return true;
-
-        } catch (SQLException e) {
-            System.out.println("Error: " + e);
-            return false;
-        }
-    }
-
-    public boolean executeDeleteStatement(String query) {
-        try {
-            Statement statement = con.createStatement();
-            statement.executeUpdate(query);
-            statement.close();
-            return true;
-
-        } catch (SQLException e) {
-            System.out.println("Error: " + e);
-            return false;
-        }
-    }
-
 }

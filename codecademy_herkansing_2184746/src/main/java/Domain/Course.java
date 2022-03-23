@@ -11,19 +11,7 @@ public class Course {
         this.level = level;
     }
 
-    public String getCourseName() {
-        return courseName;
-    }
 
-    public String getSubject() {
-        return subject;
-    }
 
-    public String getIntroText() {
-        return introText;
-    }
 
-    public int getLevel() {
-        return level;
-    }
 }
