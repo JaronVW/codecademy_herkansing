@@ -43,9 +43,8 @@ public class StudentDAO {
     }
 
     public Boolean insertStudent(Student student) {
-        String sql = "INSERT INTO Student VALUES(?,?,?,?,?,?,?,?,?)";
-
         try {
+            String sql = "INSERT INTO Student VALUES(?,?,?,?,?,?,?,?,?)";
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setString(1, student.getEmailaddress().getMail());
             pstmt.setString(2, student.getFirstname());
@@ -57,19 +56,62 @@ public class StudentDAO {
             pstmt.setString(8, student.getCity());
             pstmt.setString(9, student.getCountry());
             pstmt.executeUpdate();
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
 
-        return true;
+
     }
 
     public Boolean deleteStudent(Student student) {
-        return false;
+
+        try {
+            String sql = "DELETE FROM Student WHERE Emailaddress = ? ";
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setString(1, student.getEmailaddress().getMail());
+            pstmt.executeUpdate();
+            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
     }
 
-    public Boolean updateStudent(Student student) {
-        return false;
+    public Boolean updateStudent(Student student, Mail oldMail) {
+        try {
+            String sql = "Update Student SET " +
+                    "Emailaddress = ?," +
+                    "Firstname = ?," +
+                    "Lastname = ?," +
+                    "DateOfBirth = ?," +
+                    "Gender = ?," +
+                    "Address = ?," +
+                    "Zipcode = ?," +
+                    "City = ?," +
+                    "Country =?  WHERE Emailaddress = ?";
+
+
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setString(1, student.getEmailaddress().getMail());
+            pstmt.setString(2, student.getFirstname());
+            pstmt.setString(3, student.getLastname());
+            pstmt.setDate(4, student.getDateOfBirth().getDate());
+            pstmt.setString(5, student.getGender().toString());
+            pstmt.setString(6, student.getAddress());
+            pstmt.setString(7, student.getZipcode().getZipcode());
+            pstmt.setString(8, student.getCity());
+            pstmt.setString(9, student.getCountry());
+            pstmt.setString(10, oldMail.getMail());
+            pstmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
 }

@@ -51,19 +51,17 @@ public class Main extends Application {
         stage.setScene(home);
         stage.show();
 
+
         StudentDAO studentDAO = new StudentDAO();
-        System.out.println(studentDAO.insertStudent(new Student(new Mail("ff@.f"),
-        "Jaron",
-                "vanwell",
-                new ValidatedDate(19, 1,2002),
-                Gender.NB,"a",
-                new Zipcode("1234aa"),
-                "dordrecht",
-                "ja")));
-
-
-        EnrollmentDAO enrollmentDAO = new EnrollmentDAO();
-        System.out.println(enrollmentDAO.selectAllEnrollments());
+        System.out.println(
+                studentDAO.updateStudent(new Student(new Mail("jj@.f"),
+                        "nee",
+                        "misschien",
+                        new ValidatedDate(19, 1, 2002),
+                        Gender.NB, "a",
+                        new Zipcode("1234aa"),
+                        "Dordrecht",
+                        "ja"),new Mail("ff@f.f")));
 
 
     }
