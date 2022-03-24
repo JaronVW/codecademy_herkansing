@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class CourseDAO {
+    // course data acces object
     private DatabaseConnection databaseConnection;
     private Connection connection;
 
@@ -63,6 +64,7 @@ public class CourseDAO {
             System.out.println(e);
             return null;
         }
+        //returns a hashmap with the module title and the average completion percentage from module
     }
 
 

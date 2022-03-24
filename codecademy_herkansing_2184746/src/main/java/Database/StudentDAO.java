@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class StudentDAO {
+    // student data acces object
     private final DatabaseConnection databaseConnection;
     private Connection connection;
 
@@ -39,7 +40,7 @@ public class StudentDAO {
             System.out.println(e);
         }
         return students;
-        // method receives ResultSet and iterates over each entry to fill arraylist. The arraylist gets returned to method call
+        // method receives ResultSet with database data and iterates over each entry to fill arraylist. The arraylist gets returned to method call
     }
 
     public Boolean insertStudent(Student student) {
@@ -63,8 +64,7 @@ public class StudentDAO {
             e.printStackTrace();
             return false;
         }
-
-
+        // inserts a student from the database
     }
 
     public Boolean deleteStudent(Student student) {
@@ -80,6 +80,7 @@ public class StudentDAO {
             e.printStackTrace();
             return false;
         }
+        // deletes a student from the database
 
     }
 
@@ -114,6 +115,7 @@ public class StudentDAO {
             e.printStackTrace();
             return false;
         }
+        // deletes a student from the database
     }
 
 }

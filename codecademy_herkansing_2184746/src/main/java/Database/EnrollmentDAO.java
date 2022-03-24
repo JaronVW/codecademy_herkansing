@@ -48,7 +48,7 @@ public class EnrollmentDAO {
             System.out.println(e);
             return false;
         }
-
+        // inserts an enrollment to the database
 
     }
 
@@ -62,6 +62,7 @@ public class EnrollmentDAO {
             System.out.println(e);
             return false;
         }
+        // deletes an enrollment from the database
     }
 
     public Boolean updateStudent(Enrollment enrollment, Mail CurrentEnrollmentMail) {
@@ -79,6 +80,7 @@ public class EnrollmentDAO {
             System.out.println(e);
             return false;
         }
+        // updates an enrollment from the database
     }
 
 }
