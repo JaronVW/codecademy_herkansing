@@ -55,6 +55,8 @@ public class StudentDAO {
             pstmt.setString(7, student.getZipcode().getZipcode());
             pstmt.setString(8, student.getCity());
             pstmt.setString(9, student.getCountry());
+
+
             pstmt.executeUpdate();
             return true;
         } catch (SQLException e) {

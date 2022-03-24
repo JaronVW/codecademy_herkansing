@@ -1,7 +1,7 @@
 package Domain;
 public class Mail {
 
-    private String mail;
+    private final String mail;
 
     public Mail(String mail) {
 

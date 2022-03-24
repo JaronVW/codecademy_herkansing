@@ -3,6 +3,7 @@ package Database;
 import Domain.*;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -34,16 +35,50 @@ public class EnrollmentDAO {
         // method receives ResultSet and iterates over each entry to fill arraylist. The arraylist gets returned to method call
     }
 
-    public Boolean insertStudent(Student student) {
-        return false;
+    public Boolean insertEnrollment(Enrollment enrollment) {
+        try{
+            String sql = "INSERT INTO StudentCourseRegister VALUES(?,?,?)";
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setString(1, enrollment.getEmailaddress().getMail());
+            pstmt.setString(2,enrollment.getCourseName());
+            pstmt.setDate(3,enrollment.getRegisterDate().getDate());
+            pstmt.executeUpdate();
+            return true;
+        }catch (SQLException e) {
+            System.out.println(e);
+            return false;
+        }
+
+
     }
 
     public Boolean deleteStudent(Student student) {
-        return false;
+        try{
+            String sql = "DELETE FROM StudentCourseRegister WHERE Emailaddress = ?";
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+
+            return true;
+        }catch (SQLException e) {
+            System.out.println(e);
+            return false;
+        }
     }
 
-    public Boolean updateStudent(Student student) {
-        return false;
+    public Boolean updateStudent(Enrollment enrollment, Mail CurrentEnrollmentMail) {
+        try{
+            String sql = "UPDATE StudentCourseRegister SET Emailaddress = ?, CourseName = ?,RegisterDate =? WHERE Emailaddress = ? ";
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setString(1, enrollment.getEmailaddress().getMail());
+            pstmt.setString(2,enrollment.getCourseName());
+            pstmt.setDate(3,enrollment.getRegisterDate().getDate());
+            pstmt.setString(4, CurrentEnrollmentMail.getMail());
+            pstmt.executeUpdate();
+            return true;
+
+        }catch (SQLException e) {
+            System.out.println(e);
+            return false;
+        }
     }
 
 }
