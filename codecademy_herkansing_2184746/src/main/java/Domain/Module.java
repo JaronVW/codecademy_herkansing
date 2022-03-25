@@ -5,8 +5,17 @@ public class Module extends ContentItem {
     private final int version;
     private final String moduleDescription, contactPersonEmail;
 
-    public Module(String contentItemTitle, ValidatedDate publicationDate, Status status, int version, String moduleDescription, String contactPersonEmail) {
-        super(contentItemTitle, publicationDate, status);
+    public Module(String coursename,
+                  String contentItemTitle,
+                  ValidatedDate publicationDate,
+                  Status status,
+                  Mail emailaddress,
+                  int percentage,
+                  int version,
+                  String moduleDescription,
+                  String contactPersonEmail) {
+
+        super(coursename, contentItemTitle, publicationDate, status, emailaddress, percentage);
         this.version = version;
         this.moduleDescription = moduleDescription;
         this.contactPersonEmail = contactPersonEmail;
@@ -23,4 +32,6 @@ public class Module extends ContentItem {
     public String getContactPersonEmail() {
         return contactPersonEmail;
     }
+
+
 }

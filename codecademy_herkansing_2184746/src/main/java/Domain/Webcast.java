@@ -7,8 +7,18 @@ public class Webcast extends ContentItem {
     private final Mail speakerEmail;
     private final String webcastDescription;
 
-    public Webcast(String contentItemTitle, ValidatedDate publicationDate, Status status, int duration, String webcastURL, Mail speakerEmail, String webcastDescription) {
-        super(contentItemTitle, publicationDate, status);
+    public Webcast(String coursename,
+                   String contentItemTitle,
+                   ValidatedDate publicationDate,
+                   Status status,
+                   Mail emailaddress,
+                   int percentage,
+                   int duration,
+                   String webcastURL,
+                   Mail speakerEmail,
+                   String webcastDescription) {
+
+        super(coursename, contentItemTitle, publicationDate, status, emailaddress, percentage);
         this.duration = duration;
         this.webcastURL = webcastURL;
         this.speakerEmail = speakerEmail;

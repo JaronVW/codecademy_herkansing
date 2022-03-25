@@ -19,7 +19,7 @@ public class EnrollmentDAO {
 
     public ArrayList<Enrollment> selectAllEnrollments() {
         ArrayList<Enrollment> enrollments = new ArrayList<>();
-        ResultSet resultSet = databaseConnection.executeSelectStatement("SELECT * FROM StudentCourseRegister");
+        ResultSet resultSet = databaseConnection.executeSelectStatement("SELECT * FROM Enrollment");
 
         try {
             while (resultSet.next()) {
@@ -37,7 +37,7 @@ public class EnrollmentDAO {
 
     public Boolean insertEnrollment(Enrollment enrollment) {
         try{
-            String sql = "INSERT INTO StudentCourseRegister VALUES(?,?,?)";
+            String sql = "INSERT INTO Enrollment VALUES(?,?,?)";
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setString(1, enrollment.getEmailaddress().getMail());
             pstmt.setString(2,enrollment.getCourseName());
@@ -54,7 +54,7 @@ public class EnrollmentDAO {
 
     public Boolean deleteStudent(Student student) {
         try{
-            String sql = "DELETE FROM StudentCourseRegister WHERE Emailaddress = ?";
+            String sql = "DELETE FROM Enrollment WHERE Emailaddress = ?";
             PreparedStatement pstmt = connection.prepareStatement(sql);
 
             return true;
@@ -67,7 +67,7 @@ public class EnrollmentDAO {
 
     public Boolean updateStudent(Enrollment enrollment, Mail CurrentEnrollmentMail) {
         try{
-            String sql = "UPDATE StudentCourseRegister SET Emailaddress = ?, CourseName = ?,RegisterDate =? WHERE Emailaddress = ? ";
+            String sql = "UPDATE Enrollment SET Emailaddress = ?, CourseName = ?,RegisterDate =? WHERE Emailaddress = ? ";
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setString(1, enrollment.getEmailaddress().getMail());
             pstmt.setString(2,enrollment.getCourseName());

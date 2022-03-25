@@ -43,6 +43,25 @@ public class StudentDAO {
         // method receives ResultSet with database data and iterates over each entry to fill arraylist. The arraylist gets returned to method call
     }
 
+    public ArrayList<ContentItemProgress> selectStudentModuleProgress(Student student) {
+        ArrayList<ContentItemProgress> contentItemProgressArrayList = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM ContentItemProgress WHERE Emailaddress=" + student.getEmailaddress().getMail();
+            ResultSet resultSet = databaseConnection.executeSelectStatement(sql);
+            while (resultSet.next()) {
+                contentItemProgressArrayList.add(new ContentItemProgress(
+                        resultSet.getInt("ContentItemID"),
+                        new Mail(resultSet.getString("Emailaddress")),
+                        resultSet.getInt("Percentage")
+                ));
+            }
+            return contentItemProgressArrayList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public Boolean insertStudent(Student student) {
         try {
             String sql = "INSERT INTO Student VALUES(?,?,?,?,?,?,?,?,?)";
@@ -117,5 +136,6 @@ public class StudentDAO {
         }
         // deletes a student from the database
     }
+
 
 }

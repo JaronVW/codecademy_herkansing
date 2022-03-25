@@ -1,9 +1,7 @@
 package Database;
 
-import Domain.Course;
+import Domain.*;
 import Domain.Module;
-import Domain.Status;
-import Domain.ValidatedDate;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -22,19 +20,33 @@ public class ModuleDAO {
 
     public ArrayList<Module> selectAllModules() {
         ArrayList<Module> modules = new ArrayList<>();
-        ResultSet resultSet = databaseConnection.executeSelectStatement("SELECT ContentItemTitle, PublicationDate, Module.Status, Version, ModuleDescription, ContactpersonEmail\n" +
-                "FROM Module JOIN ContentItem on ContentItem.ContentItemID = Module.ContentItemID");
+        ResultSet resultSet = databaseConnection.executeSelectStatement("SELECT CourseName," +
+                " ContentItemTitle," +
+                " PublicationDate," +
+                " Module.Status," +
+                " Emailaddress," +
+                " Percentage," +
+                " Version," +
+                " ModuleDescription," +
+                " ContactpersonEmail\n" +
+                "FROM Module\n" +
+                "JOIN ContentItem on ContentItem.ContentItemID = Module.ContentItemID\n" +
+                "" +
+                "JOIN ContentItemProgress  on ContentItem.ContentItemID = ContentItemProgress.ContentItemID");
         // selects necessary data to instantiate a Module object
         try {
             while (resultSet.next()) {
+                String courseName = resultSet.getString("CourseName");
                 String contentItemTitle = resultSet.getString("ContentItemTitle");
                 ValidatedDate publicationDate = new ValidatedDate(resultSet.getDate("PublicationDate"));
                 Status status = Status.valueOf(resultSet.getString("Status"));
+                Mail emailaddress = new Mail(resultSet.getString("Emailaddress"));
+                int percentage = resultSet.getInt("Percentage");
                 int version = resultSet.getInt("Version");
                 String moduleDescription = resultSet.getString("ModuleDescription");
                 String contactPersonEmail = resultSet.getString("contactPersonEmail");
 
-                modules.add(new Module(contentItemTitle,publicationDate,status,version,moduleDescription,contactPersonEmail));
+                modules.add(new Module(courseName, contentItemTitle, publicationDate, status,emailaddress,percentage, version, moduleDescription, contactPersonEmail));
             }
         } catch (SQLException e) {
             System.out.println(e);
