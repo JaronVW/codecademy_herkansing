@@ -17,7 +17,6 @@ public class Webcast extends ContentItem {
                    String webcastURL,
                    Mail speakerEmail,
                    String webcastDescription) {
-
         super(coursename, contentItemTitle, publicationDate, status, emailaddress, percentage);
         this.duration = duration;
         this.webcastURL = webcastURL;

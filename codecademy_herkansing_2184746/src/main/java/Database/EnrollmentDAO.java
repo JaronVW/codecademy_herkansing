@@ -66,7 +66,7 @@ public class EnrollmentDAO {
         // deletes an enrollment from the database
     }
 
-    public boolean updateEnrollment(Enrollment enrollment, Enrollment CurrentEnrollment {
+    public boolean updateEnrollment(Enrollment enrollment, Enrollment CurrentEnrollment) {
         try{
             String sql = "UPDATE Enrollment SET Emailaddress = ?, CourseName = ?,RegisterDate =? WHERE Emailaddress = ? AND CourseName = ?";
             PreparedStatement pstmt = connection.prepareStatement(sql);
