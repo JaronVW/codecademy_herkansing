@@ -35,7 +35,7 @@ public class EnrollmentDAO {
         // method receives ResultSet and iterates over each entry to fill arraylist. The arraylist gets returned to method call
     }
 
-    public Boolean insertEnrollment(Enrollment enrollment) {
+    public boolean insertEnrollment(Enrollment enrollment) {
         try{
             String sql = "INSERT INTO Enrollment VALUES(?,?,?)";
             PreparedStatement pstmt = connection.prepareStatement(sql);
@@ -52,11 +52,12 @@ public class EnrollmentDAO {
 
     }
 
-    public Boolean deleteStudent(Student student) {
+    public boolean deleteEnrollment(Mail mail) {
         try{
             String sql = "DELETE FROM Enrollment WHERE Emailaddress = ?";
             PreparedStatement pstmt = connection.prepareStatement(sql);
-
+            pstmt.setString(1,mail.getMail());
+            pstmt.executeUpdate();
             return true;
         }catch (SQLException e) {
             System.out.println(e);
@@ -65,14 +66,15 @@ public class EnrollmentDAO {
         // deletes an enrollment from the database
     }
 
-    public Boolean updateStudent(Enrollment enrollment, Mail CurrentEnrollmentMail) {
+    public boolean updateEnrollment(Enrollment enrollment, Enrollment CurrentEnrollment {
         try{
-            String sql = "UPDATE Enrollment SET Emailaddress = ?, CourseName = ?,RegisterDate =? WHERE Emailaddress = ? ";
+            String sql = "UPDATE Enrollment SET Emailaddress = ?, CourseName = ?,RegisterDate =? WHERE Emailaddress = ? AND CourseName = ?";
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setString(1, enrollment.getEmailaddress().getMail());
             pstmt.setString(2,enrollment.getCourseName());
             pstmt.setDate(3,enrollment.getRegisterDate().getDate());
-            pstmt.setString(4, CurrentEnrollmentMail.getMail());
+            pstmt.setString(4, CurrentEnrollment.getEmailaddress().getMail());
+            pstmt.setString(4, CurrentEnrollment.getCourseName());
             pstmt.executeUpdate();
             return true;
 

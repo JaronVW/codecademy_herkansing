@@ -10,20 +10,21 @@ import Domain.Module;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+//manager classes are used to prevent code duplication and make code migration easier. they can also easily implement needed logic
 public class ModuleManager {
 
-    public HashMap<String, Integer> getModuleCompletionPercentage(Course course) {
-        ModuleDAO moduleDAO = new ModuleDAO();
-        ArrayList<Module> courseNameModules = new ArrayList<>();
-        moduleDAO.selectAllModules().forEach(m -> {
-            if (m.getCoursename().equals(course.getCourseName()))
-                courseNameModules.add(m);
-        });
+    private final ModuleDAO moduleDAO;
 
-        //TODO: finish this method
+    public ModuleManager() {
+        this.moduleDAO = new ModuleDAO();
+    }
 
-        HashMap<String, Integer> results = new HashMap<>();
-        return results;
+    public ArrayList<Module> allModules(){
+        return moduleDAO.selectAllModules();
+    }
+
+    public HashMap<String, Integer> ModulePercentage(Course course) {
+        return moduleDAO.selectModulePercentage(course.getCourseName());
     }
 
 }

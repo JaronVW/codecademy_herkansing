@@ -38,7 +38,6 @@ public class DatabaseConnection {
         try {
             Statement statement = connection.createStatement();
             return statement.executeQuery(query);
-
         } catch (SQLException e) {
             System.out.println("Error: " + e);
             return null;

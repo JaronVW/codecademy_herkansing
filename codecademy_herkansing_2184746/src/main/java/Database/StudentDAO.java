@@ -43,10 +43,10 @@ public class StudentDAO {
         // method receives ResultSet with database data and iterates over each entry to fill arraylist. The arraylist gets returned to method call
     }
 
-    public ArrayList<ContentItemProgress> selectStudentModuleProgress(Student student) {
+    public ArrayList<ContentItemProgress> selectStudentModuleProgress(Mail mail) {
         ArrayList<ContentItemProgress> contentItemProgressArrayList = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM ContentItemProgress WHERE Emailaddress=" + student.getEmailaddress().getMail();
+            String sql = "SELECT * FROM ContentItemProgress WHERE Emailaddress=" + mail.getMail();
             ResultSet resultSet = databaseConnection.executeSelectStatement(sql);
             while (resultSet.next()) {
                 contentItemProgressArrayList.add(new ContentItemProgress(
@@ -62,7 +62,7 @@ public class StudentDAO {
         }
     }
 
-    public Boolean insertStudent(Student student) {
+    public boolean insertStudent(Student student) {
         try {
             String sql = "INSERT INTO Student VALUES(?,?,?,?,?,?,?,?,?)";
             PreparedStatement pstmt = connection.prepareStatement(sql);
@@ -86,12 +86,12 @@ public class StudentDAO {
         // inserts a student from the database
     }
 
-    public Boolean deleteStudent(Student student) {
+    public boolean deleteStudent(Mail mail) {
 
         try {
             String sql = "DELETE FROM Student WHERE Emailaddress = ? ";
             PreparedStatement pstmt = connection.prepareStatement(sql);
-            pstmt.setString(1, student.getEmailaddress().getMail());
+            pstmt.setString(1,mail.getMail());
             pstmt.executeUpdate();
             return true;
 
@@ -103,7 +103,7 @@ public class StudentDAO {
 
     }
 
-    public Boolean updateStudent(Student student, Mail oldMail) {
+    public boolean updateStudent(Student student, Mail oldMail) {
         try {
             String sql = "Update Student SET " +
                     "Emailaddress = ?," +

@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ModuleDAO {
 
@@ -46,7 +47,7 @@ public class ModuleDAO {
                 String moduleDescription = resultSet.getString("ModuleDescription");
                 String contactPersonEmail = resultSet.getString("contactPersonEmail");
 
-                modules.add(new Module(courseName, contentItemTitle, publicationDate, status,emailaddress,percentage, version, moduleDescription, contactPersonEmail));
+                modules.add(new Module(courseName, contentItemTitle, publicationDate, status, emailaddress, percentage, version, moduleDescription, contactPersonEmail));
             }
         } catch (SQLException e) {
             System.out.println(e);
@@ -55,5 +56,25 @@ public class ModuleDAO {
         // return an arraylist with Modules
     }
 
+    public HashMap<String, Integer> selectModulePercentage(String courseName) {
+        try {
+            HashMap<String, Integer> results = new HashMap<>();
+            String sql = "SELECT ContentItemTitle, SUM(Percentage) / COUNT(*) AS completionPercentage\n" +
+                    "FROM ContentItemProgress\n" +
+                    "JOIN ContentItem CI on ContentItemProgress.ContentItemID = CI.ContentItemID\n" +
+                    "JOIN Module M on CI.ContentItemID = M.ContentItemID\n" +
+                    "WHERE CourseName = " + courseName + "\n" +
+                    "group by ContentItemTitle";
+            ResultSet resultSet = databaseConnection.executeSelectStatement(sql);
+            while (resultSet.next()) {
+                results.put(resultSet.getString("ContentItemTitle"), resultSet.getInt("completionPercentage"));
+            }
+            return results;
+        } catch (SQLException e) {
+            System.out.println(e);
+            return null;
+        }
+    }
+    // returns a hashmap filled with the titles of the contentitems and the average percentage per module in the selected course
 
 }
