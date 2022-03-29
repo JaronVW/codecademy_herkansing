@@ -3,7 +3,7 @@ package Domain;
 public class Student {
     private final Mail emailaddress;
     private final String firstname,lastname;
-    private final ValidatedDate DateOfBirth;
+    private final ValidatedDate dateOfBirth;
     private final Gender gender;
     private final String address;
     private final Zipcode zipcode;
@@ -13,7 +13,7 @@ public class Student {
         this.emailaddress = emailaddress;
         this.firstname = firstname;
         this.lastname = lastname;
-        DateOfBirth = dateOfBirth;
+        this.dateOfBirth = dateOfBirth;
         this.gender = gender;
         this.address = address;
         this.zipcode = zipcode;
@@ -34,7 +34,7 @@ public class Student {
     }
 
     public ValidatedDate getDateOfBirth() {
-        return DateOfBirth;
+        return dateOfBirth;
     }
 
     public Gender getGender() {
@@ -64,7 +64,7 @@ public class Student {
                 "emailaddress=" + emailaddress +
                 ", firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
-                ", DateOfBirth=" + DateOfBirth +
+                ", DateOfBirth=" + dateOfBirth +
                 ", gender=" + gender +
                 ", address='" + address + '\'' +
                 ", zipcode=" + zipcode +

@@ -14,13 +14,7 @@ public class ValidatedDate {
     }
 
     public ValidatedDate(Date date) {
-            this.date = date;
-    }
-
-
-
-    public Date getDate() {
-        return date;
+        this.date = date;
     }
 
     public static boolean validateDate(int day, int month, int year) {
@@ -30,5 +24,15 @@ public class ValidatedDate {
         } catch (Exception e) {
             return false;
         }
+    }
+
+
+    public Date getDate() {
+        return date;
+    }
+
+    @Override
+    public String toString() {
+        return getDate().toString();
     }
 }

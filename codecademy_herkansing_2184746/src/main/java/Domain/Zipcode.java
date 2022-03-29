@@ -9,9 +9,7 @@ public class Zipcode {
         this.zipcode = postalCode;
     }
 
-    public String getZipcode() {
-        return zipcode;
-    }
+
 
     private static String formatPostalCode(String postalCode) {
         if (postalCode == null) {
@@ -33,5 +31,14 @@ public class Zipcode {
             }
         }
         throw new IllegalArgumentException();
+    }
+
+    public String getZipcode() {
+        return zipcode;
+    }
+
+    @Override
+    public String toString() {
+        return zipcode;
     }
 }

@@ -9,6 +9,11 @@ public class Mail {
         this.mail = mail;
     }
 
+    @Override
+    public String toString() {
+        return getMail();
+    }
+
     public String getMail() {
         return mail;
     }
