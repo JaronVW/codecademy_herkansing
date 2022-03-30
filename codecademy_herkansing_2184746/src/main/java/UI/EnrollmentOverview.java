@@ -53,6 +53,14 @@ public class EnrollmentOverview extends OverviewElements {
         BorderPane.setMargin(sidebar,getSidebarInsets());
 
         Button deleteEnrollment = new Button("Delete enrollment");
+
+        deleteEnrollment.setOnAction(actionEvent -> {
+            Enrollment enrollment = table.getSelectionModel().getSelectedItem();
+            table.getItems().remove(enrollment);
+            enrollmentManager.deleteEnrollment(enrollment);
+            table.refresh();
+        });
+
         Button editEnrollment = new Button("Edit enrollment");
         Button addEnrollment = new Button("Add enrollment");
 

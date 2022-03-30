@@ -1,26 +1,27 @@
 package UI;
 
-import Domain.Gender;
-import Domain.Mail;
-import Domain.Student;
+import Domain.*;
 import Logic.StudentManager;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 public class StudentOverview extends OverviewElements {
 
+    private final StudentManager studentManager;
+    private TableView<Student> table;
+
     public StudentOverview(Scene homeScene, Stage stage) {
         super(homeScene, stage);
+        this.studentManager = new StudentManager();
     }
 
     public Scene getStudentOverview() {
@@ -31,11 +32,9 @@ public class StudentOverview extends OverviewElements {
         stage.setWidth(800);
 
         BorderPane layout = new BorderPane();
-
-        StudentManager studentManager = new StudentManager();
         ArrayList<Student> students = studentManager.allStudents();
 
-        TableView<Student> table = new TableView<>();
+        table = new TableView<>();
         table.getItems().addAll(students);
 
         TableColumn<Student, Mail> emailCol = new TableColumn<>("Email");
@@ -77,14 +76,222 @@ public class StudentOverview extends OverviewElements {
         layout.setLeft(sidebar);
         BorderPane.setMargin(sidebar, getSidebarInsets());
 
-        javafx.scene.control.Button deleteEnrollment = new javafx.scene.control.Button("Delete student");
-        javafx.scene.control.Button editEnrollment = new javafx.scene.control.Button("Edit student");
-        javafx.scene.control.Button addEnrollment = new Button("Add student");
+        javafx.scene.control.Button deleteStudent = new javafx.scene.control.Button("Delete student");
 
-        Node bottomBar = getCRUDButtons(deleteEnrollment, editEnrollment, addEnrollment);
+        deleteStudent.setOnAction(actionEvent -> {
+            Student student = table.getSelectionModel().getSelectedItem();
+            table.getItems().remove(student);
+            studentManager.deleteStudent(student);
+            table.refresh();
+        });
+
+        javafx.scene.control.Button editStudent = new javafx.scene.control.Button("Edit student");
+        javafx.scene.control.Button addStudent = new Button("Add student");
+
+        addStudent.setOnAction(actionEvent -> {
+            Popup popup = addStudentMenu();
+            popup.show(stage);
+
+        });
+
+        editStudent.setOnAction(actionEvent -> {
+            Popup popup = editStudentMenu(table.getSelectionModel().getSelectedItem());
+            popup.show(stage);
+
+        });
+
+
+        Node bottomBar = getCRUDButtons(deleteStudent, editStudent, addStudent);
         layout.setBottom(bottomBar);
 
 
         return new Scene(layout);
     }
+
+    private Popup addStudentMenu() {
+        Popup addMenu = new Popup();
+        addMenu.setOpacity(1f);
+        addMenu.setHeight(500);
+        addMenu.setWidth(500);
+
+
+        VBox popupLayout = new VBox();
+        popupLayout.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        popupLayout.setMinHeight(300);
+        popupLayout.setMinWidth(400);
+
+
+        TextField email = new TextField();
+        email.setPromptText("Email");
+        TextField firstname = new TextField();
+        firstname.setPromptText("First name");
+        TextField lastname = new TextField();
+        lastname.setPromptText("Last name");
+        Spinner<Integer> day = new Spinner<>();
+        day.setPromptText("Day");
+        day.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 31, 1));
+        Spinner<Integer> month = new Spinner<>();
+        month.setPromptText("Month");
+        month.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 12, 1));
+        TextField year = new TextField();
+        year.setPromptText("Year");
+        ComboBox<String> gender = new ComboBox<>();
+        gender.getItems().addAll("M", "F", "NB");
+        TextField address = new TextField();
+        address.setPromptText("Address");
+        TextField zipcode = new TextField();
+        zipcode.setPromptText("Zipcode");
+        TextField city = new TextField();
+        city.setPromptText("City");
+        TextField country = new TextField();
+        country.setPromptText("Country");
+
+        Button addButton = new Button("Add");
+        Button cancelButton = new Button("Cancel");
+        HBox buttons = new HBox();
+        buttons.getChildren().addAll(addButton, cancelButton);
+
+        popupLayout.getChildren().addAll(
+                new Label("Add student"),
+                email,
+                firstname,
+                lastname,
+                new HBox(day, new Label("Day")),
+                new HBox(month, new Label("Month")),
+                year,
+                gender,
+                address,
+                zipcode,
+                city,
+                country,
+                buttons);
+        popupLayout.setPadding(new Insets(10, 100, 10, 10));
+        popupLayout.setSpacing(10);
+
+        addMenu.getContent().add(popupLayout);
+
+
+        addButton.setOnAction(actionEvent -> {
+            studentManager.newStudent(new Student(
+                    new Mail(email.getText()),
+                    firstname.getText(),
+                    lastname.getText(),
+                    new ValidatedDate(
+                            day.getValue(),
+                            month.getValue(),
+                            Integer.parseInt(year.getText())),
+                    Gender.valueOf(gender.getValue().toString()),
+                    address.getText(),
+                    new Zipcode(zipcode.getText()),
+                    city.getText(),
+                    country.getText()));
+            table.getItems().clear();
+            table.getItems().addAll(studentManager.allStudents());
+            table.refresh();
+            addMenu.hide();
+        });
+
+        cancelButton.setOnAction(actionEvent -> {
+            addMenu.hide();
+        });
+
+        return addMenu;
+        // makes a popup with form fields to add a student to the database
+    }
+
+
+    private Popup editStudentMenu(Student currentStudent) {
+        Popup editMenu = new Popup();
+        editMenu.setOpacity(1f);
+        editMenu.setHeight(500);
+        editMenu.setWidth(500);
+
+
+        VBox popupLayout = new VBox();
+        popupLayout.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        popupLayout.setMinHeight(300);
+        popupLayout.setMinWidth(400);
+
+
+        TextField email = new TextField(currentStudent.getEmailaddress().getMail());
+
+        TextField firstname = new TextField(currentStudent.getFirstname());
+
+        TextField lastname = new TextField(currentStudent.getLastname());
+
+        Spinner<Integer> day = new Spinner<>();
+
+        day.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 31, currentStudent.getDateOfBirth().getDate().toLocalDate().getDayOfMonth()));
+        Spinner<Integer> month = new Spinner<>();
+
+        month.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 12, currentStudent.getDateOfBirth().getDate().toLocalDate().getMonthValue()));
+        TextField year = new TextField(currentStudent.getDateOfBirth().getDate().toLocalDate().getYear()+"");
+
+        ComboBox<String> gender = new ComboBox<>();
+        gender.getItems().addAll("M", "F", "NB");
+        gender.getSelectionModel().select(currentStudent.getGender().toString());
+
+        TextField address = new TextField(currentStudent.getAddress());
+
+        TextField zipcode = new TextField(currentStudent.getZipcode().getZipcode());
+
+        TextField city = new TextField(currentStudent.getCity());
+
+        TextField country = new TextField(currentStudent.getCountry());
+
+
+        Button addButton = new Button("Edit");
+        Button cancelButton = new Button("Cancel");
+        HBox buttons = new HBox();
+        buttons.getChildren().addAll(addButton, cancelButton);
+
+        popupLayout.getChildren().addAll(
+                new Label("Add student"),
+                email,
+                firstname,
+                lastname,
+                new HBox(day, new Label("Day")),
+                new HBox(month, new Label("Month")),
+                year,
+                gender,
+                address,
+                zipcode,
+                city,
+                country,
+                buttons);
+        popupLayout.setPadding(new Insets(10, 100, 10, 10));
+        popupLayout.setSpacing(10);
+
+        editMenu.getContent().add(popupLayout);
+
+
+        addButton.setOnAction(actionEvent -> {
+            studentManager.editStudent(new Student(
+                            new Mail(email.getText()),
+                            firstname.getText(),
+                            lastname.getText(),
+                            new ValidatedDate(
+                                    day.getValue(),
+                                    month.getValue(),
+                                    Integer.parseInt(year.getText())),
+                            Gender.valueOf(gender.getValue().toString()),
+                            address.getText(),
+                            new Zipcode(zipcode.getText()),
+                            city.getText(),
+                            country.getText()),
+                    currentStudent);
+            table.getItems().clear();
+            table.getItems().addAll(studentManager.allStudents());
+            table.refresh();
+            editMenu.hide();
+        });
+
+        cancelButton.setOnAction(actionEvent -> {
+            editMenu.hide();
+        });
+
+        return editMenu;
+        // makes a popup with form fields to add a student to the database
+    }
+
 }

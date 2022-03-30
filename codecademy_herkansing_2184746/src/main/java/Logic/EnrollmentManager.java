@@ -19,7 +19,7 @@ public class EnrollmentManager {
         return enrollmentDAO.selectAllEnrollments();
     }
 
-    public boolean newStudent(Enrollment enrollment) {
+    public boolean newEnrollment(Enrollment enrollment) {
         return enrollmentDAO.insertEnrollment(enrollment);
     }
 
@@ -27,7 +27,7 @@ public class EnrollmentManager {
         return enrollmentDAO.updateEnrollment(oldEnrollment, newEnrollment);
     }
 
-    public boolean deleteStudent(Enrollment enrollment) {
+    public boolean deleteEnrollment(Enrollment enrollment) {
         return enrollmentDAO.deleteEnrollment(enrollment.getEmailaddress());
     }
 }

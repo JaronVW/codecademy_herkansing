@@ -8,8 +8,10 @@ public class ValidatedDate {
 
 
     public ValidatedDate(int day, int month, int year) {
-        if(validateDate(day,month,year))
-            this.date = new Date(day,month,year);
+        if(validateDate(day,month,year)) {
+            LocalDate localDate = LocalDate.of(year, month, day);
+            this.date = Date.valueOf(localDate);
+        }
 
     }
 
