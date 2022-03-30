@@ -4,6 +4,7 @@ import Domain.*;
 import Logic.EnrollmentManager;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -19,6 +20,11 @@ public class EnrollmentOverview extends OverviewElements {
     }
 
     public  Scene getEnrollmentOverview(){
+        final String stageTitle = "Codecademy: Jaron van well, 2184746: ";
+        Stage stage = getStage();
+        stage.setTitle(stageTitle + "Enrollments");
+        stage.setHeight(500);
+        stage.setWidth(800);
 
         BorderPane layout = new BorderPane();
         EnrollmentManager enrollmentManager = new EnrollmentManager();
@@ -40,10 +46,18 @@ public class EnrollmentOverview extends OverviewElements {
         table.getColumns().setAll(emailCol,courseNameCol,registerDateCol);
 
         layout.setCenter(table);
-        layout.setMargin(table,getTableInsets());
+        BorderPane.setMargin(table,getTableInsets());
 
         Node sidebar = getNavigationSidebar();
         layout.setLeft(sidebar);
+        BorderPane.setMargin(sidebar,getSidebarInsets());
+
+        Button deleteEnrollment = new Button("Delete enrollment");
+        Button editEnrollment = new Button("Edit enrollment");
+        Button addEnrollment = new Button("Add enrollment");
+
+        Node bottomBar = getCRUDButtons(deleteEnrollment,editEnrollment,addEnrollment);
+        layout.setBottom(bottomBar);
 
         return new Scene(layout);
     }

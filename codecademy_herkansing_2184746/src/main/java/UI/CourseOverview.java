@@ -20,6 +20,12 @@ public class CourseOverview extends OverviewElements {
 
     public Scene getCourseOverview(){
 
+        final String stageTitle = "Codecademy: Jaron van well, 2184746: ";
+        Stage stage = getStage();
+        stage.setTitle(stageTitle + "Students");
+        stage.setHeight(500);
+        stage.setWidth(800);
+
         BorderPane layout = new BorderPane();
         CourseManager courseManager = new CourseManager();
         ArrayList<Course> courses = courseManager.allCourses();
@@ -42,10 +48,11 @@ public class CourseOverview extends OverviewElements {
         table.getColumns().setAll(courseNameCol,subjectCol,introTextCol,levelCol);
 
         layout.setCenter(table);
-        layout.setMargin(table,getTableInsets());
+        BorderPane.setMargin(table,getTableInsets());
 
         Node sidebar = getNavigationSidebar();
         layout.setLeft(sidebar);
+        BorderPane.setMargin(sidebar,getSidebarInsets());
 
         return new Scene(layout);
     }

@@ -19,7 +19,7 @@ public abstract class OverviewElements {
         this.home = homeScene;
         this.stage = stage;
         this. tableInsets = new Insets(10,20,10,20);
-        this.sidebarInsets = new Insets(10,0,10,0);
+        this.sidebarInsets = new Insets(10,0,10,10);
     }
 
     public VBox getNavigationSidebar(){
@@ -54,6 +54,26 @@ public abstract class OverviewElements {
 
         sidebar.getChildren().addAll(backToHome,studentScene,courseScene,enrollmentScene);
         return sidebar;
+    }
+
+    public HBox getCRUDButtons(Button delete, Button edit, Button add){
+        HBox layout = new HBox();
+
+        layout.getChildren().addAll(delete,edit,add);
+
+        return layout;
+    }
+
+    public Scene getHome() {
+        return home;
+    }
+
+    public Stage getStage() {
+        return stage;
+    }
+
+    public Insets getSidebarInsets() {
+        return sidebarInsets;
     }
 
     public Insets getTableInsets() {

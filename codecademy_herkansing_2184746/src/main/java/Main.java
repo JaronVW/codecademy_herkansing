@@ -27,8 +27,8 @@ public class Main extends Application {
 
 
         stage.setTitle(stageTitle + "Home");
-        stage.setMinHeight(500);
-        stage.setMinWidth(800);
+        stage.setHeight(500);
+        stage.setWidth(800);
 
 
         BorderPane borderPane = new BorderPane();
@@ -55,17 +55,13 @@ public class Main extends Application {
 
         Scene home = new Scene(borderPane);
         try {
-            home.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+            home.getStylesheets().add(getClass().getResource("style").toExternalForm());
         }catch (Exception e){
             System.out.println(e);
         }
 
         stage.setScene(home);
         stage.show();
-
-        StudentManager courseManager = new StudentManager();
-        System.out.println(courseManager.allStudents());
-
 
         studentScene.setOnAction(actionEvent -> {
             stage.setScene( new StudentOverview(home,stage).getStudentOverview());
