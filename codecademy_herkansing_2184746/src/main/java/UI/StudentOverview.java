@@ -3,26 +3,30 @@ package UI;
 import Domain.Gender;
 import Domain.Mail;
 import Domain.Student;
-import Domain.ValidatedDate;
 import Logic.StudentManager;
-import javafx.beans.InvalidationListener;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
-import javafx.collections.ObservableListBase;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-import java.util.*;
+import java.awt.*;
+import java.util.ArrayList;
 
-public class StudentOverview {
+public class StudentOverview extends OverviewElements {
 
-    public static Scene getStudentOverview(Stage stage){
+    public StudentOverview(Scene homeScene, Stage stage) {
+        super(homeScene, stage);
+    }
 
-        HBox layout = new HBox();
+    public Scene getStudentOverview(){
+
+        BorderPane layout = new BorderPane();
+
+
 
         StudentManager studentManager = new StudentManager();
         ArrayList<Student> students = studentManager.allStudents();
@@ -62,7 +66,11 @@ public class StudentOverview {
 
         table.getColumns().setAll(emailCol,firstnameCol,lastnameCol,DOBCol,genderCol,addressCol,zipcodeCol,cityCol,countryCol);
 
-        layout.getChildren().add(table);
+        layout.setCenter(table);
+        layout.setMargin(table,getTableInsets());
+
+        Node sidebar = getNavigationSidebar();
+        layout.setLeft(sidebar);
 
         return new Scene(layout);
     }

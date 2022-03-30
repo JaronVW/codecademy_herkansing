@@ -1,5 +1,6 @@
-import Logic.CourseManager;
 import Logic.StudentManager;
+import UI.CourseOverview;
+import UI.EnrollmentOverview;
 import UI.StudentOverview;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -26,8 +27,8 @@ public class Main extends Application {
 
 
         stage.setTitle(stageTitle + "Home");
-        stage.setHeight(500);
-        stage.setWidth(800);
+        stage.setMinHeight(500);
+        stage.setMinWidth(800);
 
 
         BorderPane borderPane = new BorderPane();
@@ -67,7 +68,16 @@ public class Main extends Application {
 
 
         studentScene.setOnAction(actionEvent -> {
-            stage.setScene(StudentOverview.getStudentOverview(stage));
+            stage.setScene( new StudentOverview(home,stage).getStudentOverview());
+        });
+
+        courseScene.setOnAction(actionEvent -> {
+
+            stage.setScene(new CourseOverview(home,stage).getCourseOverview());
+        });
+
+        enrollmentScene.setOnAction(actionEvent -> {
+            stage.setScene(new EnrollmentOverview(home,stage).getEnrollmentOverview());
         });
 
 
