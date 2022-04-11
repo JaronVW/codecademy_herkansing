@@ -9,13 +9,11 @@ public class Module extends ContentItem {
                   String contentItemTitle,
                   ValidatedDate publicationDate,
                   Status status,
-                  Mail emailaddress,
-                  int percentage,
                   int version,
                   String moduleDescription,
                   String contactPersonEmail) {
 
-        super(coursename, contentItemTitle, publicationDate, status, emailaddress, percentage);
+        super(coursename, contentItemTitle, publicationDate, status);
         this.version = version;
         this.moduleDescription = moduleDescription;
         this.contactPersonEmail = contactPersonEmail;

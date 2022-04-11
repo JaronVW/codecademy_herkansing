@@ -225,7 +225,7 @@ public class StudentOverview extends OverviewElements {
         Spinner<Integer> month = new Spinner<>();
 
         month.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 12, currentStudent.getDateOfBirth().getDate().toLocalDate().getMonthValue()));
-        TextField year = new TextField(currentStudent.getDateOfBirth().getDate().toLocalDate().getYear()+"");
+        TextField year = new TextField(currentStudent.getDateOfBirth().getDate().toLocalDate().getYear() + "");
 
         ComboBox<String> gender = new ComboBox<>();
         gender.getItems().addAll("M", "F", "NB");

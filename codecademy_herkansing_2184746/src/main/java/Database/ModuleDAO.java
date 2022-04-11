@@ -41,13 +41,11 @@ public class ModuleDAO {
                 String contentItemTitle = resultSet.getString("ContentItemTitle");
                 ValidatedDate publicationDate = new ValidatedDate(resultSet.getDate("PublicationDate"));
                 Status status = Status.valueOf(resultSet.getString("Status"));
-                Mail emailaddress = new Mail(resultSet.getString("Emailaddress"));
-                int percentage = resultSet.getInt("Percentage");
                 int version = resultSet.getInt("Version");
                 String moduleDescription = resultSet.getString("ModuleDescription");
                 String contactPersonEmail = resultSet.getString("contactPersonEmail");
 
-                modules.add(new Module(courseName, contentItemTitle, publicationDate, status, emailaddress, percentage, version, moduleDescription, contactPersonEmail));
+                modules.add(new Module(courseName, contentItemTitle, publicationDate, status,  version, moduleDescription, contactPersonEmail));
             }
         } catch (SQLException e) {
             System.out.println(e);

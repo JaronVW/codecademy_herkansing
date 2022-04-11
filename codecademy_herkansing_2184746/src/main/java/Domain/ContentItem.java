@@ -1,24 +1,18 @@
 package Domain;
 
-import java.util.ArrayList;
-
 public abstract class ContentItem {
 
-    private final String coursename;
-    private final String contentItemTitle;
-    private final ValidatedDate publicationDate;
-    private final Status status;
-    private final Mail emailaddress;
-    private final int Percentage;
+    protected final String coursename;
+    protected final String contentItemTitle;
+    protected final ValidatedDate publicationDate;
+    protected final Status status;
 
 
-    public ContentItem(String coursename, String contentItemTitle, ValidatedDate publicationDate, Status status, Mail emailaddress, int percentage) {
+    public ContentItem(String coursename, String contentItemTitle, ValidatedDate publicationDate, Status status) {
         this.coursename = coursename;
         this.contentItemTitle = contentItemTitle;
         this.publicationDate = publicationDate;
         this.status = status;
-        this.emailaddress = emailaddress;
-        Percentage = percentage;
     }
 
     public String getCoursename() {
@@ -37,12 +31,4 @@ public abstract class ContentItem {
         return status;
     }
 
-
-    public Mail getEmailaddress() {
-        return emailaddress;
-    }
-
-    public int getPercentage() {
-        return Percentage;
-    }
 }

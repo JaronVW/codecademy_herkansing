@@ -24,9 +24,9 @@ public abstract class OverviewElements {
 
     public VBox getNavigationSidebar(){
         final String backToHomeButtonText = "Back";
-        final String studentSceneButton = "students";
-        final String enrollmentSceneButton = "enrollments";
-        final String courseSceneButton = "courses";
+        final String studentSceneButton = "Students";
+        final String enrollmentSceneButton = "Enrollments";
+        final String courseSceneButton = "Courses";
 
         VBox sidebar = new VBox();
         Button backToHome = new Button(backToHomeButtonText);
@@ -43,16 +43,18 @@ public abstract class OverviewElements {
             stage.setScene( new StudentOverview(home,stage).getStudentOverview());
         });
 
-        courseScene.setOnAction(actionEvent -> {
 
-            stage.setScene(new CourseOverview(home,stage).getCourseOverview());
-        });
 
         enrollmentScene.setOnAction(actionEvent -> {
             stage.setScene(new EnrollmentOverview(home,stage).getEnrollmentOverview());
         });
 
-        sidebar.getChildren().addAll(backToHome,studentScene,courseScene,enrollmentScene);
+        courseScene.setOnAction(actionEvent -> {
+
+            stage.setScene(new CourseOverview(home,stage).getCourseOverview());
+        });
+
+        sidebar.getChildren().addAll(backToHome,studentScene,enrollmentScene,courseScene);
         return sidebar;
     }
 

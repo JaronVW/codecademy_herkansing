@@ -1,4 +1,3 @@
-import Logic.StudentManager;
 import UI.CourseOverview;
 import UI.EnrollmentOverview;
 import UI.StudentOverview;
@@ -7,7 +6,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -35,11 +34,12 @@ public class Main extends Application {
         Text title = new Text(stageTitle);
         borderPane.setTop(title);
 
-        HBox layout = new HBox();
+        VBox layout = new VBox();
 
         Button studentScene = new Button(studentSceneButton);
         Button enrollmentScene = new Button(enrollmentSceneButton);
         Button courseScene = new Button(courseSceneButton);
+        Button webcasData =  new Button();
 
 
 
@@ -75,7 +75,6 @@ public class Main extends Application {
         enrollmentScene.setOnAction(actionEvent -> {
             stage.setScene(new EnrollmentOverview(home,stage).getEnrollmentOverview());
         });
-
 
 
 

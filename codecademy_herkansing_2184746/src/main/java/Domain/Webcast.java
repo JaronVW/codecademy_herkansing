@@ -11,13 +11,11 @@ public class Webcast extends ContentItem {
                    String contentItemTitle,
                    ValidatedDate publicationDate,
                    Status status,
-                   Mail emailaddress,
-                   int percentage,
                    int duration,
                    String webcastURL,
                    Mail speakerEmail,
                    String webcastDescription) {
-        super(coursename, contentItemTitle, publicationDate, status, emailaddress, percentage);
+        super(coursename, contentItemTitle, publicationDate, status);
         this.duration = duration;
         this.webcastURL = webcastURL;
         this.speakerEmail = speakerEmail;
@@ -38,5 +36,13 @@ public class Webcast extends ContentItem {
 
     public String getWebcastURL() {
         return webcastURL;
+    }
+
+    @Override
+    public String toString() {
+        return "Webcast{" +
+                "contentItemTitle='" + contentItemTitle + '\'' +
+                ", webcastDescription='" + webcastDescription + '\'' +
+                '}';
     }
 }

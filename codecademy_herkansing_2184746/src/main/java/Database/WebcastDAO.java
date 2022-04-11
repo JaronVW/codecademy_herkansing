@@ -1,12 +1,15 @@
 package Database;
 
-import Domain.*;
+import Domain.Mail;
+import Domain.Status;
+import Domain.ValidatedDate;
+import Domain.Webcast;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class WebcastDAO {
     private final DatabaseConnection databaseConnection;
@@ -19,36 +22,44 @@ public class WebcastDAO {
 
     public ArrayList<Webcast> selectAllWebcasts() {
         ArrayList<Webcast> webcasts = new ArrayList<>();
-        ResultSet resultSet = databaseConnection.executeSelectStatement("SELECT * FROM Webcast");
+        ResultSet resultSet = databaseConnection.executeSelectStatement("SELECT DISTINCT * FROM ContentItem,Webcast WHERE ContentItem.ContentItemID = Webcast.ContentItemID");
         try {
             while (resultSet.next()) {
-                String courseName = resultSet.getString("CourseName");
-                String contentItemTitle = resultSet.getString("ContentItemTitle");
-                ValidatedDate publicationDate = new ValidatedDate(resultSet.getDate("publicationDate"));
-                Status status = Status.valueOf(resultSet.getString("Status"));
-                Mail mail = new Mail(resultSet.getString("Emailaddress"));
-                int percentage = resultSet.getInt("Percentage");
-                int duration = resultSet.getInt("Duration");
-                String webcastURL = resultSet.getString("WebcastURL");
-                Mail speakerEmail = new Mail(resultSet.getString("speakerEmail"));
-                String webcastDescription = resultSet.getString("WebcastDescription");
-
-                webcasts.add(new Webcast(courseName,
-                        contentItemTitle,
-                        publicationDate,
-                        status,
-                        mail,
-                        percentage,
-                        duration,
-                        webcastURL,
-                        speakerEmail,
-                        webcastDescription));
+                webcasts.add(new Webcast(
+                                resultSet.getString("CourseName"),
+                                resultSet.getString("ContentItemTitle"),
+                                new ValidatedDate(resultSet.getDate("publicationDate")),
+                                Status.valueOf(resultSet.getString("Status")),
+                                resultSet.getInt("Duration"),
+                                resultSet.getString("WebcastURL"),
+                                new Mail(resultSet.getString("speakerEmail")),
+                                resultSet.getString("WebcastDescription")
+                        )
+                );
             }
         } catch (SQLException e) {
             System.out.println(e);
         }
         return webcasts;
         // method receives ResultSet and iterates over each entry to fill arraylist. The arraylist gets returned to method call
+    }
+
+    public HashMap<Integer, String> selectTopFourWebcasts() {
+        HashMap<Integer, String> hashMap = new HashMap<>();
+        String query = "SELECT TOP 4 ContentItem.ContentItemID, ContentItemTitle, SUM(Percentage) AS PercentageSUM FROM ContentItem\n" +
+                "JOIN Webcast W on ContentItem.ContentItemID = W.ContentItemID\n" +
+                "JOIN ContentItemProgress CIP on ContentItem.ContentItemID = CIP.ContentItemID\n" +
+                "GROUP BY ContentItem.ContentItemID, ContentItemTitle\n" +
+                "ORDER BY PercentageSUM desc";
+        ResultSet resultSet = databaseConnection.executeSelectStatement(query);
+        try {
+            while (resultSet.next())
+                hashMap.put(resultSet.getInt("ContentItemID"), resultSet.getString("ContentItemTitle"));
+        } catch (SQLException e) {
+            System.out.println(e);
+            return null;
+        }
+        return hashMap;
     }
 
 }

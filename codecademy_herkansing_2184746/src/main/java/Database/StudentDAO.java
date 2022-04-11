@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class StudentDAO {
     // student data acces object
@@ -91,7 +92,7 @@ public class StudentDAO {
         try {
             String sql = "DELETE FROM Student WHERE Emailaddress = ? ";
             PreparedStatement pstmt = connection.prepareStatement(sql);
-            pstmt.setString(1,mail.getMail());
+            pstmt.setString(1, mail.getMail());
             pstmt.executeUpdate();
             return true;
 
@@ -137,5 +138,36 @@ public class StudentDAO {
         // deletes a student from the database
     }
 
+    public HashMap<String, ContentItemProgress> selectModulePercentagePerCourse(String contentItemTitle, String emailaddress) {
+        HashMap<String, ContentItemProgress> result = new HashMap<>();
+
+        ResultSet resultSet = databaseConnection.executeSelectStatement("SELECT ContentItem.ContentItemTitle, " +
+                "ContentItemProgress.ContentItemID, " +
+                "ContentItemtitle, " +
+                "Percentage \n" +
+                "JOIN ContentItem ON ContentItemProgress.ContentItemID = ContentItem.ContentItemID \n" +
+                "JOIN Course ON Course.CourseName = ContentItem.CourseName \n" +
+                "JOIN Module ON Module.ContentItemID = ContentItemProgress.ContentItemID \n" +
+                "WHERE Course.CourseName = " + contentItemTitle + " \n" +
+                "AND EmailAddress = " + emailaddress);
+        try {
+            while (resultSet.next()) {
+                result.put(
+                        resultSet.getString("Emailaddress"),
+                        new ContentItemProgress(
+                                resultSet.getInt("ContentItemID"),
+                                new Mail(resultSet.getString("Emailaddress")),
+                                resultSet.getInt("Percentage")
+                        )
+                );
+            }
+        } catch (SQLException e){
+            System.out.println(e.toString());
+            return result;
+        }
+        return result;
+    }
 
 }
+
+
