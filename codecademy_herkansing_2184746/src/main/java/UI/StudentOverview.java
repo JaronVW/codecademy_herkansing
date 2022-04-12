@@ -327,6 +327,7 @@ public class StudentOverview extends OverviewElements {
         });
 
         ListView<Course> courselist = new ListView<Course>(FXCollections.observableArrayList(new CourseManager().allCourses()));
+        courselist.setMaxHeight(100);
         courselist.maxHeight(200);
         VBox modulePercentages = new VBox();
 
@@ -342,14 +343,16 @@ public class StudentOverview extends OverviewElements {
                     modulePercentages.getChildren().add(new Text(i + ": Module: " +
                             entry.getKey() +
                             " avg percentage " +
-                            entry.getValue()));
+                            entry.getValue().getPercentage()+ "%"));
                     i++;
                 }
+            }else {
+                modulePercentages.getChildren().add(new Text("Student has not yet started any modules for this course"));
             }
         });
 
 
-        popupLayout.getChildren().addAll(courselist, modulePercentages, backButton);
+        popupLayout.getChildren().addAll(courselist,new Text("select a course to view percentages"), modulePercentages, backButton);
         menu.getContent().add(popupLayout);
         return menu;
     }

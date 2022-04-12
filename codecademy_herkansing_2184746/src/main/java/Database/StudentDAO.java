@@ -150,7 +150,7 @@ public class StudentDAO {
         try {
             while (resultSet.next()) {
                 result.put(
-                        resultSet.getString("Emailaddress"),
+                        resultSet.getString("CourseName"),
                         new ContentItemProgress(
                                 resultSet.getInt("ContentItemID"),
                                 new Mail(resultSet.getString("Emailaddress")),
