@@ -1,9 +1,11 @@
 package Logic;
 
 import Database.StudentDAO;
+import Domain.ContentItemProgress;
 import Domain.Student;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 //manager classes are used to prevent code duplication and make code migration easier. they can also easily implement needed logic
 public class StudentManager {
@@ -29,4 +31,9 @@ public class StudentManager {
     public boolean deleteStudent(Student student) {
         return studentDAO.deleteStudent(student.getEmailaddress());
     }
+
+    public HashMap<String, ContentItemProgress> studentModulePercentage(String courseName, String emailaddress) {
+        return studentDAO.selectModulePercentagePerCourse(courseName, emailaddress);
+    }
+
 }

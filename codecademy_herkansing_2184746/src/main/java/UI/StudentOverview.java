@@ -1,7 +1,9 @@
 package UI;
 
 import Domain.*;
+import Logic.CourseManager;
 import Logic.StudentManager;
+import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -9,10 +11,13 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class StudentOverview extends OverviewElements {
 
@@ -69,7 +74,14 @@ public class StudentOverview extends OverviewElements {
 
         table.getColumns().setAll(emailCol, firstnameCol, lastnameCol, DOBCol, genderCol, addressCol, zipcodeCol, cityCol, countryCol);
 
-        layout.setCenter(table);
+
+        Button modulePercentage = new Button("View students module percentage");
+        modulePercentage.setOnAction(actionEvent -> {
+            Popup popup = ModuleCompletionPerCourse();
+            popup.show(stage);
+        });
+
+        layout.setCenter(new VBox(table, modulePercentage));
         BorderPane.setMargin(table, getTableInsets());
 
         Node sidebar = getNavigationSidebar();
@@ -292,6 +304,54 @@ public class StudentOverview extends OverviewElements {
 
         return editMenu;
         // makes a popup with form fields to add a student to the database
+    }
+
+    private Popup ModuleCompletionPerCourse() {
+
+        Popup menu = new Popup();
+        menu.setOpacity(1f);
+        menu.setHeight(500);
+        menu.setWidth(500);
+
+        VBox popupLayout = new VBox();
+        popupLayout.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        popupLayout.setMinHeight(300);
+        popupLayout.setMinWidth(400);
+
+        popupLayout.setPadding(new Insets(10, 100, 10, 10));
+        popupLayout.setSpacing(10);
+
+        Button backButton = new Button("Back");
+        backButton.setOnAction(actionEvent -> {
+            menu.hide();
+        });
+
+        ListView<Course> courselist = new ListView<Course>(FXCollections.observableArrayList(new CourseManager().allCourses()));
+        courselist.maxHeight(200);
+        VBox modulePercentages = new VBox();
+
+        courselist.setOnMouseClicked(e -> {
+            modulePercentages.getChildren().clear();
+            final HashMap<String, ContentItemProgress>[] hashMap = new HashMap[]{new HashMap<>()};
+            String courseName = courselist.getSelectionModel().getSelectedItem().getCourseName();
+            String mail = table.getSelectionModel().getSelectedItem().getEmailaddress().getMail();
+            hashMap[0] = studentManager.studentModulePercentage(courseName, mail);
+            if (!hashMap[0].isEmpty()) {
+                int i = 1;
+                for (Map.Entry<String, ContentItemProgress> entry : hashMap[0].entrySet()) {
+                    modulePercentages.getChildren().add(new Text(i + ": Module: " +
+                            entry.getKey() +
+                            " avg percentage " +
+                            entry.getValue()));
+                    i++;
+                }
+            }
+        });
+
+
+        popupLayout.getChildren().addAll(courselist, modulePercentages, backButton);
+        menu.getContent().add(popupLayout);
+        return menu;
     }
 
 }

@@ -61,7 +61,7 @@ public class ModuleDAO {
                     "FROM ContentItemProgress\n" +
                     "JOIN ContentItem CI on ContentItemProgress.ContentItemID = CI.ContentItemID\n" +
                     "JOIN Module M on CI.ContentItemID = M.ContentItemID\n" +
-                    "WHERE CourseName = " + courseName + "\n" +
+                    "WHERE CourseName = '" + courseName + "'\n" +
                     "group by ContentItemTitle";
             ResultSet resultSet = databaseConnection.executeSelectStatement(sql);
             while (resultSet.next()) {

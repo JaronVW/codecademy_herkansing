@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 public class EnrollmentOverview extends OverviewElements {
     private EnrollmentManager enrollmentManager;
+    private TableView<Enrollment> table;
 
     public EnrollmentOverview(Scene homeScene, Stage stage) {
         super(homeScene, stage);
@@ -34,7 +35,7 @@ public class EnrollmentOverview extends OverviewElements {
 
         ArrayList<Enrollment> enrollments = enrollmentManager.allEnrollments();
 
-        TableView<Enrollment> table = new TableView<>();
+         table = new TableView<>();
         table.getItems().addAll(enrollments);
 
         TableColumn<Enrollment, String> emailCol = new TableColumn<>("Email");
@@ -148,6 +149,10 @@ public class EnrollmentOverview extends OverviewElements {
                             )
                     )
             );
+            table.getItems().clear();
+            table.getItems().addAll(enrollmentManager.allEnrollments());
+            table.refresh();
+            addMenu.hide();
         });
 
         cancelButton.setOnAction(actionEvent -> {
@@ -188,10 +193,10 @@ public class EnrollmentOverview extends OverviewElements {
         year.setText(""+ currentEnrollment.getRegisterDate().getDate().toLocalDate().getYear());
 
 
-        Button addButton = new Button("Add");
+        Button editButton = new Button("Edit");
         Button cancelButton = new Button("Cancel");
         HBox buttons = new HBox();
-        buttons.getChildren().addAll(addButton, cancelButton);
+        buttons.getChildren().addAll(editButton, cancelButton);
 
         popupLayout.getChildren().addAll(
                 new Label("Add student"),
@@ -207,8 +212,8 @@ public class EnrollmentOverview extends OverviewElements {
         addMenu.getContent().add(popupLayout);
 
 
-        addButton.setOnAction(actionEvent -> {
-            enrollmentManager.editEnrollment(currentEnrollment,new Enrollment(
+        editButton.setOnAction(actionEvent -> {
+            enrollmentManager.editEnrollment(new Enrollment(
                             new Mail(email.getText()),
                             courseName.getText(),
                             new ValidatedDate(
@@ -216,8 +221,12 @@ public class EnrollmentOverview extends OverviewElements {
                                     month.getValue(),
                                     Integer.parseInt(year.getText())
                             )
-                    )
+                    ),currentEnrollment
             );
+            table.getItems().clear();
+            table.getItems().addAll(enrollmentManager.allEnrollments());
+            table.refresh();
+            addMenu.hide();
         });
 
         cancelButton.setOnAction(actionEvent -> {

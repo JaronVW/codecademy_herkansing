@@ -29,11 +29,6 @@ public class Course {
 
     @Override
     public String toString() {
-        return "Course{" +
-                "courseName='" + courseName + '\'' +
-                ", subject='" + subject + '\'' +
-                ", introText='" + introText + '\'' +
-                ", level=" + level +
-                '}';
+        return getCourseName();
     }
 }

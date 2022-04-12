@@ -1,10 +1,6 @@
 package Logic;
 
-import Database.CourseDAO;
 import Database.ModuleDAO;
-import Database.StudentDAO;
-import Domain.ContentItemProgress;
-import Domain.Course;
 import Domain.Module;
 
 import java.util.ArrayList;
@@ -23,8 +19,8 @@ public class ModuleManager {
         return moduleDAO.selectAllModules();
     }
 
-    public HashMap<String, Integer> ModulePercentage(Course course) {
-        return moduleDAO.selectModulePercentage(course.getCourseName());
+    public HashMap<String, Integer> ModulePercentage(String courseName) {
+        return moduleDAO.selectModulePercentage(courseName);
     }
 
 }

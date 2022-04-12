@@ -17,4 +17,10 @@ public class CourseManager {
     public ArrayList<Course> allCourses(){
         return courseDAO.selectAllCourses();
     }
+
+    public String numberOfCompletedCourses(String courseName){
+        return "number completed: " + courseDAO.numberofCompletedCourses(courseName)+ " Student(s)";
+    }
+
+
 }

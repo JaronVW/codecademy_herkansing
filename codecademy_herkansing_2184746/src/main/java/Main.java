@@ -1,6 +1,7 @@
 import UI.CourseOverview;
 import UI.EnrollmentOverview;
 import UI.StudentOverview;
+import UI.WebcastOverview;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -18,11 +19,12 @@ public class Main extends Application {
     }
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
         final String stageTitle = "Codecademy: Jaron van well, 2184746: ";
         final String studentSceneButton = "View and edit students";
         final String enrollmentSceneButton = "View and edit enrollments";
         final String courseSceneButton = "View courses";
+        final String webcastDataButton = "Webcasts";
 
 
         stage.setTitle(stageTitle + "Home");
@@ -39,7 +41,7 @@ public class Main extends Application {
         Button studentScene = new Button(studentSceneButton);
         Button enrollmentScene = new Button(enrollmentSceneButton);
         Button courseScene = new Button(courseSceneButton);
-        Button webcasData =  new Button();
+        Button webcastScene =  new Button(webcastDataButton);
 
 
 
@@ -48,17 +50,13 @@ public class Main extends Application {
         studentScene.setPadding(buttonPadding);
         enrollmentScene.setPadding(buttonPadding);
         courseScene.setPadding(buttonPadding);
+        webcastScene.setPadding(buttonPadding);
 
-        layout.getChildren().addAll(studentScene, enrollmentScene, courseScene);
+        layout.getChildren().addAll(studentScene, enrollmentScene, courseScene,webcastScene);
         borderPane.setCenter(layout);
 
 
         Scene home = new Scene(borderPane);
-        try {
-            home.getStylesheets().add(getClass().getResource("style").toExternalForm());
-        }catch (Exception e){
-            System.out.println(e);
-        }
 
         stage.setScene(home);
         stage.show();
@@ -76,7 +74,9 @@ public class Main extends Application {
             stage.setScene(new EnrollmentOverview(home,stage).getEnrollmentOverview());
         });
 
-
+        webcastScene.setOnAction(actionEvent -> {
+            stage.setScene(new WebcastOverview(home,stage).getWebcastOverview());
+        });
 
     }
 }

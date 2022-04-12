@@ -2,21 +2,21 @@ package Domain;
 
 public abstract class ContentItem {
 
-    protected final String coursename;
+    protected final String courseName;
     protected final String contentItemTitle;
     protected final ValidatedDate publicationDate;
     protected final Status status;
 
 
-    public ContentItem(String coursename, String contentItemTitle, ValidatedDate publicationDate, Status status) {
-        this.coursename = coursename;
+    public ContentItem(String courseName, String contentItemTitle, ValidatedDate publicationDate, Status status) {
+        this.courseName = courseName;
         this.contentItemTitle = contentItemTitle;
         this.publicationDate = publicationDate;
         this.status = status;
     }
 
-    public String getCoursename() {
-        return coursename;
+    public String getCourseName() {
+        return courseName;
     }
 
     public String getContentItemTitle() {
@@ -30,5 +30,4 @@ public abstract class ContentItem {
     public Status getStatus() {
         return status;
     }
-
 }

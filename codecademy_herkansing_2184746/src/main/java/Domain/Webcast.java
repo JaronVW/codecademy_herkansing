@@ -7,7 +7,7 @@ public class Webcast extends ContentItem {
     private final Mail speakerEmail;
     private final String webcastDescription;
 
-    public Webcast(String coursename,
+    public Webcast(String courseName,
                    String contentItemTitle,
                    ValidatedDate publicationDate,
                    Status status,
@@ -15,11 +15,20 @@ public class Webcast extends ContentItem {
                    String webcastURL,
                    Mail speakerEmail,
                    String webcastDescription) {
-        super(coursename, contentItemTitle, publicationDate, status);
+        super(courseName, contentItemTitle, publicationDate, status);
         this.duration = duration;
         this.webcastURL = webcastURL;
         this.speakerEmail = speakerEmail;
         this.webcastDescription = webcastDescription;
+    }
+
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public String getWebcastURL() {
+        return webcastURL;
     }
 
     public Mail getSpeakerEmail() {
@@ -28,14 +37,6 @@ public class Webcast extends ContentItem {
 
     public String getWebcastDescription() {
         return webcastDescription;
-    }
-
-    public int getDuration() {
-        return duration;
-    }
-
-    public String getWebcastURL() {
-        return webcastURL;
     }
 
     @Override

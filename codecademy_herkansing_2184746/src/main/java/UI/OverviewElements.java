@@ -27,6 +27,7 @@ public abstract class OverviewElements {
         final String studentSceneButton = "Students";
         final String enrollmentSceneButton = "Enrollments";
         final String courseSceneButton = "Courses";
+        final String webcastSceneButton = "Popular webcasts";
 
         VBox sidebar = new VBox();
         Button backToHome = new Button(backToHomeButtonText);
@@ -34,6 +35,7 @@ public abstract class OverviewElements {
         Button studentScene = new Button(studentSceneButton);
         Button enrollmentScene = new Button(enrollmentSceneButton);
         Button courseScene = new Button(courseSceneButton);
+        Button webcastScene = new Button(webcastSceneButton);
 
         backToHome.setOnAction(actionEvent -> {
             stage.setScene(home);
@@ -42,8 +44,6 @@ public abstract class OverviewElements {
         studentScene.setOnAction(actionEvent -> {
             stage.setScene( new StudentOverview(home,stage).getStudentOverview());
         });
-
-
 
         enrollmentScene.setOnAction(actionEvent -> {
             stage.setScene(new EnrollmentOverview(home,stage).getEnrollmentOverview());
@@ -54,7 +54,12 @@ public abstract class OverviewElements {
             stage.setScene(new CourseOverview(home,stage).getCourseOverview());
         });
 
-        sidebar.getChildren().addAll(backToHome,studentScene,enrollmentScene,courseScene);
+        webcastScene.setOnAction(actionEvent -> {
+
+            stage.setScene(new WebcastOverview(home,stage).getWebcastOverview());
+        });
+
+        sidebar.getChildren().addAll(backToHome,studentScene,enrollmentScene,courseScene,webcastScene);
         return sidebar;
     }
 

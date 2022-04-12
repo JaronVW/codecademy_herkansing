@@ -74,7 +74,7 @@ public class EnrollmentDAO {
             pstmt.setString(2,enrollment.getCourseName());
             pstmt.setDate(3,enrollment.getRegisterDate().getDate());
             pstmt.setString(4, CurrentEnrollment.getEmailaddress().getMail());
-            pstmt.setString(4, CurrentEnrollment.getCourseName());
+            pstmt.setString(5, CurrentEnrollment.getCourseName());
             pstmt.executeUpdate();
             return true;
 

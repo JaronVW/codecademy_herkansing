@@ -138,18 +138,15 @@ public class StudentDAO {
         // deletes a student from the database
     }
 
-    public HashMap<String, ContentItemProgress> selectModulePercentagePerCourse(String contentItemTitle, String emailaddress) {
+    public HashMap<String, ContentItemProgress> selectModulePercentagePerCourse(String courseName, String emailaddress) {
         HashMap<String, ContentItemProgress> result = new HashMap<>();
 
-        ResultSet resultSet = databaseConnection.executeSelectStatement("SELECT ContentItem.ContentItemTitle, " +
-                "ContentItemProgress.ContentItemID, " +
-                "ContentItemtitle, " +
-                "Percentage \n" +
-                "JOIN ContentItem ON ContentItemProgress.ContentItemID = ContentItem.ContentItemID \n" +
-                "JOIN Course ON Course.CourseName = ContentItem.CourseName \n" +
-                "JOIN Module ON Module.ContentItemID = ContentItemProgress.ContentItemID \n" +
-                "WHERE Course.CourseName = " + contentItemTitle + " \n" +
-                "AND EmailAddress = " + emailaddress);
+        ResultSet resultSet = databaseConnection.executeSelectStatement("SELECT ContentItem.CourseName, ContentItem.ContentItemID,ContentItemProgress.Emailaddress,Percentage\n" +
+                "FROM ContentItem\n" +
+                "         JOIN ContentItemProgress ON ContentItem.ContentItemID = ContentItemProgress.ContentItemID\n" +
+                "         JOIN Course ON Course.CourseName = ContentItem.CourseName\n" +
+                "         JOIN Module ON Module.ContentItemID = ContentItemProgress.ContentItemID\n" +
+                "         WHERE Course.courseName = '"+courseName + "' AND ContentItemProgress.Emailaddress = '"+emailaddress +  "'");
         try {
             while (resultSet.next()) {
                 result.put(
@@ -161,7 +158,7 @@ public class StudentDAO {
                         )
                 );
             }
-        } catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println(e.toString());
             return result;
         }
