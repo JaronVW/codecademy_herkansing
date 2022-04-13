@@ -3,12 +3,12 @@ package Domain;
 public class ContentItemProgress {
     private final int contentItemID;
     private final Mail emailaddress;
-    private final int percentage;
+    private final Percentage percentage;
 
     public ContentItemProgress(int contentItemID, Mail emailaddress, int percentage) {
         this.contentItemID = contentItemID;
         this.emailaddress = emailaddress;
-        this.percentage = percentage;
+        this.percentage =  new Percentage(percentage);
     }
 
     public int getContentItemID() {
@@ -20,6 +20,6 @@ public class ContentItemProgress {
     }
 
     public int getPercentage() {
-        return percentage;
+        return percentage.getPercentage();
     }
 }

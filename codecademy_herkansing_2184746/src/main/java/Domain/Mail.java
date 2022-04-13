@@ -4,9 +4,10 @@ public class Mail {
     private final String mail;
 
     public Mail(String mail) {
-
-        // TODO add validation for mail
-        this.mail = mail;
+        if(mail.matches("^\\S+@\\S+\\.\\S+$"))
+            this.mail = mail;
+        else
+            throw new IllegalArgumentException();
     }
 
     @Override

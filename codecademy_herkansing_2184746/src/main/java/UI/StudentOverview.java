@@ -343,16 +343,16 @@ public class StudentOverview extends OverviewElements {
                     modulePercentages.getChildren().add(new Text(i + ": Module: " +
                             entry.getKey() +
                             " avg percentage " +
-                            entry.getValue().getPercentage()+ "%"));
+                            entry.getValue().getPercentage() + "%"));
                     i++;
                 }
-            }else {
+            } else {
                 modulePercentages.getChildren().add(new Text("Student has not yet started any modules for this course"));
             }
         });
 
 
-        popupLayout.getChildren().addAll(courselist,new Text("select a course to view percentages"), modulePercentages, backButton);
+        popupLayout.getChildren().addAll(courselist, new Text("select a course to view percentages"), modulePercentages, backButton);
         menu.getContent().add(popupLayout);
         return menu;
     }
