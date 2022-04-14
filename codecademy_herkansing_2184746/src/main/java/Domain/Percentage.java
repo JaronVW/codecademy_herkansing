@@ -9,7 +9,6 @@ public class Percentage {
         } else {
             throw new IllegalArgumentException();
         }
-
     }
 
     public int getPercentage() {

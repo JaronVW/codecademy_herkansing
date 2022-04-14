@@ -16,15 +16,18 @@ public class ValidatedDate {
     }
 
     public ValidatedDate(Date date) {
+        if(date == null)
+            throw new NullPointerException();
         this.date = date;
     }
 
     public static boolean validateDate(int day, int month, int year) {
+
         try {
             LocalDate date = LocalDate.of(year, month, day);
             return true;
         } catch (Exception e) {
-            return false;
+            throw new IllegalArgumentException();
         }
     }
 
