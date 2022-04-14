@@ -92,9 +92,11 @@ public class StudentOverview extends OverviewElements {
 
         deleteStudent.setOnAction(actionEvent -> {
             Student student = table.getSelectionModel().getSelectedItem();
-            table.getItems().remove(student);
-            studentManager.deleteStudent(student);
-            table.refresh();
+            if (studentManager.deleteStudent(student)) {
+                table.getItems().remove(student);
+                table.refresh();
+            }
+
         });
 
         javafx.scene.control.Button editStudent = new javafx.scene.control.Button("Edit student");
@@ -278,7 +280,7 @@ public class StudentOverview extends OverviewElements {
 
 
         addButton.setOnAction(actionEvent -> {
-            studentManager.editStudent(new Student(
+            if (studentManager.editStudent(new Student(
                             new Mail(email.getText()),
                             firstname.getText(),
                             lastname.getText(),
@@ -291,11 +293,12 @@ public class StudentOverview extends OverviewElements {
                             new Zipcode(zipcode.getText()),
                             city.getText(),
                             country.getText()),
-                    currentStudent);
-            table.getItems().clear();
-            table.getItems().addAll(studentManager.allStudents());
-            table.refresh();
-            editMenu.hide();
+                    currentStudent)) {
+                table.getItems().clear();
+                table.getItems().addAll(studentManager.allStudents());
+                table.refresh();
+                editMenu.hide();
+            }
         });
 
         cancelButton.setOnAction(actionEvent -> {

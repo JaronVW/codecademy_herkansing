@@ -96,7 +96,7 @@ public class StudentDAO {
             pstmt.executeUpdate();
             return true;
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }

@@ -27,7 +27,7 @@ public class Zipcode {
         if (Integer.parseInt(numbers[0]) > 999 && Integer.parseInt(numbers[0]) <= 9999) {
             if (letters[1].length() == 2) {
                 letters[1] = letters[1].toUpperCase();
-                return numbers[0] + letters[1];
+                return numbers[0] + " " + letters[1];
             }
         }
         throw new IllegalArgumentException();
