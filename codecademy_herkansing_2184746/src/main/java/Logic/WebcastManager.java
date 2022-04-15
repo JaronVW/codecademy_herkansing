@@ -17,10 +17,11 @@ public class WebcastManager {
     public ArrayList<Webcast> allWebcasts() {
         return webcastDAO.selectAllWebcasts();
     }
+    //selects all webcasts
 
     public ArrayList<Webcast> topThreeWebcasts() {
         ArrayList<Webcast> webcastArrayList = webcastDAO.selectAllWebcasts();
-        HashMap<Integer, String> hashMap = webcastDAO.selectTopFourWebcasts();
+        HashMap<Integer, String> hashMap = webcastDAO.selectTopThreeWebcasts();
 
         ArrayList<Webcast> returnList = new ArrayList<>();
         webcastArrayList.forEach(webcast -> {
@@ -31,4 +32,5 @@ public class WebcastManager {
         });
         return returnList;
     }
+    // selects top three webcasts
 }

@@ -163,6 +163,8 @@ public class StudentDAO {
             return result;
         }
         return result;
+
+        //saves contentitempercentage and the name of the course in a hashmap that can be used in a manager class
     }
 
 }

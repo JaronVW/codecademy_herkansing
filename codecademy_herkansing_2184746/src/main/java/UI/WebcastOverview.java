@@ -66,7 +66,7 @@ public class WebcastOverview extends OverviewElements {
         layout.setLeft(sidebar);
         BorderPane.setMargin(sidebar, getSidebarInsets());
 
-
+        // returns a scene with webcasts
         return new Scene(layout);
     }
 }

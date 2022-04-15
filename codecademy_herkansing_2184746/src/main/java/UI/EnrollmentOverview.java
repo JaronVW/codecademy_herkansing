@@ -86,6 +86,7 @@ public class EnrollmentOverview extends OverviewElements {
 
         return new Scene(layout);
     }
+    //returns a scene containing a table with all enrollments inherits overviewElements
 
     private Popup addEnrollmentMenu() {
 
@@ -234,6 +235,6 @@ public class EnrollmentOverview extends OverviewElements {
         });
 
         return addMenu;
-        // makes a popup with form fields to add a student to the database
+        // makes a popup with form fields to edit an enrollment to the database
     }
 }

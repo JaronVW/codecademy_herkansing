@@ -83,6 +83,7 @@ public class CourseOverview extends OverviewElements {
 
         return new Scene(layout);
     }
+    //returns a scene containing a table with all courses inherits overviewElements
 
     private Popup courseSelector(String courseName) {
 
@@ -118,7 +119,7 @@ public class CourseOverview extends OverviewElements {
                 i++;
             }
         }
-
+        // select a course to view average percentage completion
 
         popupLayout.getChildren().addAll(modulePercentages, backButton);
 

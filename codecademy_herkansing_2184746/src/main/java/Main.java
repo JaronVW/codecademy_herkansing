@@ -77,6 +77,6 @@ public class Main extends Application {
         webcastScene.setOnAction(actionEvent -> {
             stage.setScene(new WebcastOverview(home,stage).getWebcastOverview());
         });
-
+        //creates a simple menu with buttons to pages
     }
 }

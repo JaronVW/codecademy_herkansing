@@ -44,9 +44,9 @@ public class WebcastDAO {
         // method receives ResultSet and iterates over each entry to fill arraylist. The arraylist gets returned to method call
     }
 
-    public HashMap<Integer, String> selectTopFourWebcasts() {
+    public HashMap<Integer, String> selectTopThreeWebcasts() {
         HashMap<Integer, String> hashMap = new HashMap<>();
-        String query = "SELECT TOP 4 ContentItem.ContentItemID, ContentItemTitle, SUM(Percentage) AS PercentageSUM FROM ContentItem\n" +
+        String query = "SELECT TOP 3 ContentItem.ContentItemID, ContentItemTitle, SUM(Percentage) AS PercentageSUM FROM ContentItem\n" +
                 "JOIN Webcast W on ContentItem.ContentItemID = W.ContentItemID\n" +
                 "JOIN ContentItemProgress CIP on ContentItem.ContentItemID = CIP.ContentItemID\n" +
                 "GROUP BY ContentItem.ContentItemID, ContentItemTitle\n" +
@@ -60,6 +60,7 @@ public class WebcastDAO {
             return null;
         }
         return hashMap;
+        // hashmap containing ids and titles of the three most popular webcasts based on the highest watches percentage
     }
 
 }

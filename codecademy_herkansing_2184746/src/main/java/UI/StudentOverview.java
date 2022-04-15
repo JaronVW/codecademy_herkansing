@@ -121,6 +121,8 @@ public class StudentOverview extends OverviewElements {
 
         return new Scene(layout);
     }
+    //returns a scene containing a table with all enrollments inherits overviewElements
+
 
     private Popup addStudentMenu() {
         Popup addMenu = new Popup();
@@ -306,7 +308,7 @@ public class StudentOverview extends OverviewElements {
         });
 
         return editMenu;
-        // makes a popup with form fields to add a student to the database
+        // makes a popup with form fields to edit a student in the database
     }
 
     private Popup ModuleCompletionPerCourse() {
@@ -358,6 +360,7 @@ public class StudentOverview extends OverviewElements {
         popupLayout.getChildren().addAll(courselist, new Text("select a course to view percentages"), modulePercentages, backButton);
         menu.getContent().add(popupLayout);
         return menu;
+        // shows a popup with the average module completion per module in a course
     }
 
 }

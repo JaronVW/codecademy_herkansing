@@ -62,6 +62,7 @@ public abstract class OverviewElements {
         sidebar.getChildren().addAll(backToHome,studentScene,enrollmentScene,courseScene,webcastScene);
         return sidebar;
     }
+    // contains a sidebar that can be inherited in scenes to create a menu structure
 
     public HBox getCRUDButtons(Button delete, Button edit, Button add){
         HBox layout = new HBox();

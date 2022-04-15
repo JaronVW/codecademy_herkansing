@@ -18,10 +18,11 @@ public class ModuleManager {
     public ArrayList<Module> allModules(){
         return moduleDAO.selectAllModules();
     }
+    //selects all modules
 
     public HashMap<String, Integer> ModulePercentage(String courseName) {
         return moduleDAO.selectModulePercentage(courseName);
     }
-
+    //gets average completion percentage of a module in a course
 }
 

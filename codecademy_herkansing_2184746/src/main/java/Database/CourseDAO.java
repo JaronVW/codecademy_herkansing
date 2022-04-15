@@ -52,6 +52,7 @@ public class CourseDAO {
             System.out.println(e);
             return result;
         }
+        // counts number of students and returns an int value
     }
 
 
